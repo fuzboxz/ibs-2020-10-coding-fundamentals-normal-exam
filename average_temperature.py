@@ -31,7 +31,7 @@ if __name__ == "__main__":
         for line in f:
             data = line.split(" ")[:-1]
             year = line.split()[-1]
-
+            
             for i in range(len(data)):
                 countries[i].addYear(year, data[i])
 
