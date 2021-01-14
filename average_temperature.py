@@ -1,7 +1,9 @@
 class Country():
-    def __init__(self, name):
+    def __init__(self, name, temp=None):
+        if temp is None:
+            temp = {}
         self.name = name
-        self.temp = {}
+        self.temp = temp
 
     def toString(self):
         return ''.join([self.name, " => ", str(self.temp)])
@@ -16,12 +18,11 @@ class Country():
         return max(self.temp, key=self.temp.get)
 
     def output(self):
-        print(self.name, ' => ', self.coldestYear(), ",", self.hottestYear(), sep="")
+        return "".join([self.name, ' => ', self.coldestYear(), ",", self.hottestYear()])
 
 
-if __name__ == "__main__":
+def loadData(path):
     countries = []
-
     with open("results.txt") as f:
         header = f.readline()
         elements = header.split(" ")[:-1]
@@ -31,13 +32,18 @@ if __name__ == "__main__":
         for line in f:
             data = line.split(" ")[:-1]
             year = line.split()[-1]
-            
+
             for i in range(len(data)):
                 countries[i].addYear(year, data[i])
+    return countries
+
+
+if __name__ == "__main__":
+    countries = loadData("results.txt")
 
 #   DEBUG: dumps all the temperature data
-    for country in countries:
-        country.toString()    
+#    for country in countries:
+#        print(country.toString())
 
     for country in countries:
-        country.output()
+        print(country.output())

@@ -1,5 +1,5 @@
 import unittest
-from average_temperature import Country
+from average_temperature import Country, loadData
 
 
 class CountryTest(unittest.TestCase):
@@ -19,8 +19,16 @@ class CountryTest(unittest.TestCase):
     def testfirstHottest(self):
         self.assertEqual(self.redundancy.hottestYear(), "1")
 
+    def testExam(self):
+        countries = loadData("results.txt")
+        for country in countries:
+            if country.name == "France":
+                self.assertEqual("France => 1996,2018", country.output())
+            elif country.name == "Sweden":
+                self.assertEqual("Sweden => 2004,2017", country.output())
+            elif country.name == "Germany":
+                self.assertEqual("Germany => 2000,2017", country.output())
 
 
 if __name__ == "__main__":
-    #unittest.main()
-    print("Tests don't work because I had to revert to an earlier version of average_temperature.py, but here they are nevertheless")
+    unittest.main()
